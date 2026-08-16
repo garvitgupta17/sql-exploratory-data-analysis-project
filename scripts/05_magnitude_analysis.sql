@@ -69,7 +69,7 @@ FROM gold.fact_sales f
 LEFT JOIN gold.dim_customers c
 ON f.customer_key = c.customer_key
 GROUP BY c.country
-ORDER BY total_quantity DESC;
+ORDER BY total_sold_items DESC;
 
 	
 
