@@ -1,137 +1,80 @@
 # SQL Exploratory Data Analysis & Advanced Analytics
 
-A hands-on **SQL Server / T-SQL exploratory data analysis project** focused on transforming a sales data warehouse into actionable business insights.
+## 📌 About
 
-The project progresses from database and dimensional exploration to KPI analysis, ranking, time-series analysis, cumulative metrics, performance comparisons, part-to-whole analysis, segmentation, and reusable customer/product reporting views.
-
----
-
-## 📌 Project Overview
-
-This project uses a **star-schema sales model** consisting of:
-
-- `gold.fact_sales` — transactional sales data
-- `gold.dim_customers` — customer attributes
-- `gold.dim_products` — product and category attributes
-
-The analysis is designed to answer questions such as:
-
-- What is the overall sales performance?
-- Which products and categories contribute the most revenue?
-- Which customers generate the most sales and orders?
-- How does sales performance change over time?
-- Which products are improving or declining year over year?
-- What percentage of total revenue comes from each category?
-- How can customers and products be segmented using business rules?
-- What reusable KPIs can be exposed through customer and product reports?
+This project is an **SQL Exploratory Data Analysis and Advanced Analytics project** built using **SQL Server and T-SQL**. It analyzes sales data through KPI analysis, time-series analysis, ranking, window functions, performance analysis, segmentation, and reusable customer and product reporting views to derive meaningful business insights.
 
 ---
 
 ## 🎯 Objectives
 
-The main objectives of the project are to:
-
-1. Explore the structure and contents of the sales data warehouse.
-2. Establish a baseline of business KPIs.
-3. Analyze customers, products, categories, and countries.
-4. Study sales trends across time.
-5. Apply SQL window functions for cumulative and comparative analysis.
-6. Rank top and bottom performing products and customers.
-7. Measure category contribution to total revenue.
-8. Segment customers based on spending and relationship lifespan.
-9. Segment products based on revenue performance.
-10. Build reusable analytical views for customer and product-level reporting.
+- Explore the structure and quality of the sales data warehouse.
+- Calculate core business KPIs and measures.
+- Analyze customers, products, categories, and countries.
+- Identify top and underperforming products and customers.
+- Analyze sales trends over time.
+- Apply SQL window functions for cumulative and comparative analysis.
+- Perform category contribution and customer/product segmentation.
+- Build reusable analytical views for customer and product reporting.
 
 ---
 
-## 🗂️ Data Model
+## 🏗️ Data Model
 
-The project follows a simple dimensional model:
+The project uses a simple **star-schema structure**:
 
 ```text
-                    ┌─────────────────────┐
-                    │   dim_customers     │
-                    │─────────────────────│
-                    │ customer_key        │
-                    │ customer_id         │
-                    │ customer_number     │
-                    │ first_name          │
-                    │ last_name           │
-                    │ country             │
-                    │ marital_status      │
-                    │ gender              │
-                    │ birthdate           │
-                    │ create_date         │
-                    └──────────┬──────────┘
-                               │
-                               │ customer_key
-                               │
-                    ┌──────────▼──────────┐
-                    │     fact_sales      │
-                    │─────────────────────│
-                    │ order_number        │
-                    │ product_key         │
-                    │ customer_key        │
-                    │ order_date          │
-                    │ shipping_date       │
-                    │ due_date            │
-                    │ sales_amount        │
-                    │ quantity            │
-                    │ price               │
-                    └──────────┬──────────┘
-                               │
-                               │ product_key
-                               │
-                    ┌──────────▼──────────┐
-                    │    dim_products     │
-                    │─────────────────────│
-                    │ product_key         │
-                    │ product_id          │
-                    │ product_number      │
-                    │ product_name        │
-                    │ category_id         │
-                    │ category            │
-                    │ subcategory         │
-                    │ maintenance         │
-                    │ cost                │
-                    │ product_line        │
-                    │ start_date          │
-                    └─────────────────────┘
+                 ┌─────────────────────┐
+                 │   dim_customers     │
+                 │─────────────────────│
+                 │ customer_key        │
+                 │ customer_id         │
+                 │ customer_number     │
+                 │ name / demographics │
+                 │ country             │
+                 │ birthdate           │
+                 └──────────┬──────────┘
+                            │
+                            │
+                 ┌──────────▼──────────┐
+                 │     fact_sales      │
+                 │─────────────────────│
+                 │ order_number        │
+                 │ product_key         │
+                 │ customer_key        │
+                 │ order_date          │
+                 │ sales_amount        │
+                 │ quantity            │
+                 │ price               │
+                 └──────────┬──────────┘
+                            │
+                            │
+                 ┌──────────▼──────────┐
+                 │    dim_products     │
+                 │─────────────────────│
+                 │ product_key         │
+                 │ product_name        │
+                 │ category            │
+                 │ subcategory         │
+                 │ cost                │
+                 │ product_line        │
+                 │ start_date          │
+                 └─────────────────────┘
 ```
 
-### Dataset size
+### Dataset
 
-| Table | Rows | Purpose |
+| Table | Rows | Description |
 |---|---:|---|
+| `gold.fact_sales` | 60,398 | Sales transactions |
 | `gold.dim_customers` | 18,484 | Customer master data |
 | `gold.dim_products` | 295 | Product master data |
-| `gold.fact_sales` | 60,398 | Sales transactions |
 
-The sales data covers orders from **2013-03-16 through 2014-06-30**.
-
----
-
-## 🧰 Tech Stack
-
-- **SQL Server**
-- **T-SQL**
-- Common Table Expressions (CTEs)
-- Aggregate functions
-- `JOIN` operations
-- `CASE` expressions
-- Window functions
-- `LAG()`
-- `SUM() OVER()`
-- `AVG() OVER()`
-- `DATETRUNC()`
-- `DATEDIFF()`
-- `BULK INSERT`
-- SQL Views
-- Git / GitHub
+The sales data covers orders from **March 2013 to June 2014**.
 
 ---
 
-## 📁 Project Structure
+## 🗂️ Project Structure
 
 ```text
 sql-exploratory-data-analysis-project/
@@ -166,56 +109,32 @@ sql-exploratory-data-analysis-project/
 
 ---
 
-## 🔎 Analysis Workflow
+## 🔍 Analysis Workflow
 
-### 1. Database Exploration
+### 01 — Database Exploration
+**`01_database_exploration.sql`**
 
-**Script:** `01_database_exploration.sql`
+Explores database tables and column metadata using `INFORMATION_SCHEMA`.
 
-Explores:
+### 02 — Dimension Exploration
+**`02_dimensions_exploration.sql`**
 
-- Available database tables
-- Table metadata
-- Column definitions
+Explores available customer countries and product categories, subcategories, and products.
 
-This establishes the structure of the analytical environment before deeper analysis begins.
+### 03 — Date Exploration
+**`03_date_exploration.sql`**
 
----
+Analyzes:
 
-### 2. Dimension Exploration
+- First and last order dates
+- Sales period in days, months, and years
+- Oldest and youngest customer dates
+- Customer age calculations
 
-**Script:** `02_dimensions_exploration.sql`
+### 04 — Measures & KPI Analysis
+**`04_measures_exploration.sql`**
 
-Examines important categorical dimensions such as:
-
-- Customer countries
-- Product categories
-- Product subcategories
-- Product names
-
-This helps identify the business dimensions available for slicing and grouping the data.
-
----
-
-### 3. Date Exploration
-
-**Script:** `03_date_exploration.sql`
-
-Analyzes the temporal scope of the dataset:
-
-- First order date
-- Last order date
-- Number of days/months/years covered
-- Oldest customer
-- Youngest customer
-
----
-
-### 4. KPI & Measure Exploration
-
-**Script:** `04_measures_exploration.sql`
-
-Calculates core business metrics:
+Calculates:
 
 - Total sales
 - Total quantity sold
@@ -225,15 +144,12 @@ Calculates core business metrics:
 - Total customers
 - Customers who placed orders
 
-It also combines the main KPIs into a single summary result.
+It also combines the main KPIs into a single result.
 
----
+### 05 — Magnitude Analysis
+**`05_magnitude_analysis.sql`**
 
-### 5. Magnitude Analysis
-
-**Script:** `05_magnitude_analysis.sql`
-
-Analyzes the size and distribution of the business across major dimensions:
+Analyzes the distribution of:
 
 - Customers by country
 - Customers by gender
@@ -243,15 +159,10 @@ Analyzes the size and distribution of the business across major dimensions:
 - Revenue by customer
 - Quantity sold by country
 
-This stage identifies where the business generates the largest volumes and revenues.
+### 06 — Ranking Analysis
+**`06_ranking_analysis.sql`**
 
----
-
-### 6. Ranking Analysis
-
-**Script:** `06_ranking_analysis.sql`
-
-Uses ranking logic to identify:
+Identifies:
 
 - Top 5 products by revenue
 - Bottom 5 products by revenue
@@ -259,131 +170,83 @@ Uses ranking logic to identify:
 - Customers with the fewest orders
 - Customers with the highest number of orders
 
-This helps identify high-value products/customers as well as potential underperformers.
+### 07 — Changes Over Time
+**`07_changes_over_time_analysis.sql`**
 
----
-
-### 7. Changes Over Time
-
-**Script:** `07_changes_over_time_analysis.sql`
-
-Builds a monthly sales trend containing:
+Creates a monthly sales trend containing:
 
 - Year
 - Month
 - Active customers
 - Total sales
-- Total quantity sold
+- Total quantity
 
-This provides a foundation for time-series performance analysis.
+### 08 — Cumulative Analysis
+**`08_cumulative_analysis.sql`**
 
----
-
-### 8. Cumulative Analysis
-
-**Script:** `08_cumulative_analysis.sql`
-
-Uses SQL window functions to calculate:
+Uses window functions to calculate:
 
 - Monthly sales
-- Running cumulative sales
-- Monthly average selling price
-- Cumulative average of monthly average price
+- Running total sales
+- Monthly average price
+- Cumulative average price
 
-This demonstrates how window functions can reveal long-term business trends without collapsing the underlying time series.
+### 09 — Performance Analysis
+**`09_performance_analysis.sql`**
 
----
+Compares yearly product performance against:
 
-### 9. Product Performance Analysis
+- The product's average yearly sales
+- The previous available year's sales
 
-**Script:** `09_performance_analysis.sql`
-
-Compares yearly product sales against:
-
-- The product's historical average sales
-- The previous year's sales
-
-The analysis classifies each result as:
+Uses `AVG() OVER()` and `LAG()` to classify products as:
 
 - Above Average
 - Below Average
 - Average
-
-and:
-
 - Increase
 - Decrease
 - No Change
 
-Key SQL techniques include:
+### 10 — Part-to-Whole Analysis
+**`10_part_to_whole_analysis.sql`**
 
-- CTEs
-- `AVG() OVER(PARTITION BY ...)`
-- `LAG()`
-- Conditional classification with `CASE`
+Calculates each category's:
 
----
-
-### 10. Part-to-Whole Analysis
-
-**Script:** `10_part_to_whole_analysis.sql`
-
-Measures each product category's contribution to overall sales.
-
-The output includes:
-
-- Category sales
+- Total sales
 - Overall sales
-- Percentage contribution
+- Percentage contribution to total sales
 
-This is useful for understanding revenue concentration and category-level business importance.
+This demonstrates the use of window functions for contribution analysis.
 
----
-
-### 11. Data Segmentation
-
-**Script:** `11_data_segmentation.sql`
-
-Performs rule-based segmentation of both products and customers.
-
-#### Product segmentation
-
-Products are grouped into cost ranges.
-
-#### Customer segmentation
-
-Customers are classified based on:
-
-- Relationship lifespan
-- Total spending
+### 11 — Data Segmentation
+**`11_data_segmentation.sql`**
 
 Segments:
 
-- **VIP** — at least 12 months of history and spending above 5,000
-- **Regular** — at least 12 months of history and spending of 5,000 or less
+#### Products
+Products are grouped into cost ranges.
+
+#### Customers
+Customers are classified based on spending and relationship lifespan:
+
+- **VIP** — 12+ months of history and spending above 5,000
+- **Regular** — 12+ months of history and spending 5,000 or less
 - **New** — less than 12 months of history
 
-This converts raw transactional behavior into business-friendly customer groups.
+### 12 — Customer Report
+**`12_customer_report.sql`**
 
----
-
-## 📊 Analytical Reporting Views
-
-### Customer Report
-
-**Script:** `12_customer_report.sql`
-
-Creates:
+Creates the reusable view:
 
 ```sql
 gold.report_customers
 ```
 
-The view provides customer-level analytical metrics including:
+The report includes:
 
-- Customer identity
-- Age
-- Age group
+- Customer information
+- Age and age group
 - Customer segment
 - Total orders
 - Total products purchased
@@ -395,25 +258,19 @@ The view provides customer-level analytical metrics including:
 - Average Order Value (AOV)
 - Average monthly spend
 
-This view can serve as a reusable customer analytics layer for dashboards or downstream analysis.
+### 13 — Product Report
+**`13_product_report.sql`**
 
----
-
-### Product Report
-
-**Script:** `13_product_report.sql`
-
-Creates:
+Creates the reusable view:
 
 ```sql
 gold.report_products
 ```
 
-The view provides product-level metrics including:
+The report includes:
 
-- Product name
-- Category
-- Subcategory
+- Product information
+- Category and subcategory
 - Product cost
 - Product lifespan
 - Last sale date
@@ -422,29 +279,31 @@ The view provides product-level metrics including:
 - Total orders
 - Unique customers
 - Total sales
-- Total quantity sold
+- Total quantity
 - Average selling price
 - Average order revenue
 - Average monthly revenue
 
-Product performance segments are:
+Product segments are based on total sales:
 
-- **High-Performer** — sales above 50,000
-- **Mid-Range** — sales from 10,000 to 50,000
-- **Low-Performer** — sales below 10,000
+- **High-Performer** — above 50,000
+- **Mid-Range** — 10,000 to 50,000
+- **Low-Performer** — below 10,000
 
 ---
 
-## 🧠 SQL Concepts Demonstrated
+## 🧠 SQL Techniques Demonstrated
 
-This project goes beyond basic `SELECT` queries and demonstrates practical analytical SQL, including:
-
-### Data Exploration
-- `INFORMATION_SCHEMA`
+### SQL Fundamentals
+- `SELECT`
+- `WHERE`
+- `GROUP BY`
+- `ORDER BY`
 - `DISTINCT`
-- Metadata exploration
+- `TOP`
+- `CASE`
 
-### Aggregation
+### Aggregations
 - `SUM()`
 - `AVG()`
 - `COUNT()`
@@ -452,71 +311,65 @@ This project goes beyond basic `SELECT` queries and demonstrates practical analy
 - `MIN()`
 - `MAX()`
 
-### Relational Analysis
+### Data Relationships
 - `LEFT JOIN`
-- Multi-column `GROUP BY`
-- Sorting and filtering aggregated results
+- Fact-to-dimension analysis
+- Multi-column grouping
 
 ### Date & Time Analysis
 - `YEAR()`
 - `DATETRUNC()`
 - `DATEDIFF()`
-- Dynamic date calculations with `GETDATE()`
+- `GETDATE()`
 
 ### Advanced SQL
-- CTEs
+- Common Table Expressions (CTEs)
 - Window functions
 - `LAG()`
+- `SUM() OVER()`
+- `AVG() OVER()`
 - Running totals
-- Partitioned averages
-- Conditional segmentation
-- Part-to-whole calculations
+- Comparative analysis
+- Part-to-whole analysis
 
 ### Analytical Engineering
 - Reusable SQL views
-- Layered CTE design
-- Business KPI definitions
-- Customer/product analytical marts
+- Customer analytical reporting
+- Product analytical reporting
+- Business-rule segmentation
+- Explicit type casting
+- `NULLIF()` for safe division
 
 ---
 
-## 📈 Key Analytical Questions
+## 📊 Business Questions Answered
 
-The project is structured around business questions rather than isolated SQL syntax exercises.
-
-### Business Performance
-- What is the total revenue?
-- How many orders and items were sold?
-- What is the average selling price?
+### Sales Performance
+- What are the total sales, orders, quantity, and average price?
+- How does sales performance change over time?
+- What is the cumulative sales trajectory?
 
 ### Customer Analytics
-- Where are customers located?
+- How are customers distributed across countries and genders?
 - Which customers generate the most revenue?
-- Who places the most orders?
-- How can customers be segmented by value and relationship lifespan?
-- What is customer recency and AOV?
+- Which customers place the most orders?
+- How can customers be segmented by value and lifespan?
+- What are customer recency and AOV?
 
 ### Product Analytics
 - Which products generate the most revenue?
-- Which products underperform?
-- Which categories and subcategories drive sales?
-- Which products are high, mid, or low performers?
+- Which products perform poorly?
+- Which categories and subcategories contribute the most revenue?
+- How do products perform compared with their historical average?
+- Which products are high, mid-range, or low performers?
 
-### Time-Series Analytics
-- How do sales change month over month?
-- What is the cumulative revenue trajectory?
-- How does a product perform against its historical average?
-- How does current performance compare with the previous year?
-
-### Contribution Analysis
+### Revenue Contribution
 - Which categories contribute most to total revenue?
 - What percentage of total sales does each category represent?
 
 ---
 
 ## 🗺️ Project Roadmap
-
-The project follows a progression from foundational exploration to advanced analytical reporting:
 
 ![Project Roadmap](docs/Project%20Roadmap.png)
 
@@ -526,20 +379,18 @@ The project follows a progression from foundational exploration to advanced anal
 
 ### Prerequisites
 
-Install or have access to:
-
 - SQL Server
 - SQL Server Management Studio (SSMS) or another SQL Server-compatible client
 - Git
 
-### Step 1 — Clone the repository
+### 1. Clone the repository
 
 ```bash
 git clone <your-repository-url>
 cd sql-exploratory-data-analysis-project
 ```
 
-### Step 2 — Prepare the database
+### 2. Create and load the database
 
 Open:
 
@@ -549,7 +400,7 @@ scripts/00_init_database.sql
 
 Run the script in SQL Server.
 
-> **Important:** The current initialization script contains a local Windows `BULK INSERT` path. Update the three CSV paths to match the location of your cloned repository before execution.
+> **Important:** The initialization script uses `BULK INSERT` and currently contains local file paths. Update the three CSV paths in `00_init_database.sql` to match the location of your cloned repository.
 
 For example:
 
@@ -557,9 +408,9 @@ For example:
 FROM 'C:\path\to\project\datasets\gold.fact_sales.csv'
 ```
 
-### Step 3 — Execute the analysis scripts
+### 3. Run the analysis scripts
 
-Run the scripts in order:
+Execute the scripts in order:
 
 ```text
 01_database_exploration.sql
@@ -577,82 +428,62 @@ Run the scripts in order:
 13_product_report.sql
 ```
 
-The final two scripts create reusable analytical views:
-
-```sql
-gold.report_customers
-gold.report_products
-```
+The final two scripts create the reusable customer and product reporting views.
 
 ---
 
-## 💡 Business Value
+## ⚠️ Important Implementation Notes
 
-The project demonstrates how SQL can be used as an **analytical language**, not just a data-retrieval tool.
+Before running the repository, update the local `BULK INSERT` paths in `00_init_database.sql`.
 
-The workflow moves from:
+Also ensure the source column name is consistent with the database schema:
 
-```text
-Raw Sales Data
-      ↓
-Database Exploration
-      ↓
-KPI Definition
-      ↓
-Dimensional Analysis
-      ↓
-Time-Series Analysis
-      ↓
-Window Functions
-      ↓
-Performance Comparison
-      ↓
-Segmentation
-      ↓
-Customer & Product Reports
-      ↓
-Business Insights
+```sql
+gold.dim_products.cost
 ```
 
-This approach is particularly relevant to **Data Analyst, BI Analyst, Analytics Engineer, and Data Engineer** workflows where SQL is used to transform transactional data into reusable analytical datasets.
+rather than `product_cost`.
+
+For analytical ratios such as AOV and average monthly spend, use explicit numeric conversion where fractional results are required:
+
+```sql
+CAST(total_sales AS FLOAT) / NULLIF(total_orders, 0)
+```
+
+The cumulative price calculation in `08_cumulative_analysis.sql` is a **cumulative average**, not a fixed-window moving average.
 
 ---
 
 ## 🚀 Potential Extensions
 
-Possible next steps include:
-
+- Build a Power BI dashboard using the reporting views.
+- Add month-over-month and year-over-year growth metrics.
+- Add customer cohort and retention analysis.
+- Implement RFM customer segmentation.
+- Add profitability analysis using product cost.
+- Add automated data-quality checks.
+- Add query optimization and indexing analysis.
 - Add a dedicated date dimension.
-- Add data-quality checks and constraints.
-- Add indexes for analytical queries.
-- Replace hard-coded segmentation thresholds with configurable parameters.
-- Add month-over-month and year-over-year percentage growth.
-- Add customer retention and cohort analysis.
-- Add RFM customer segmentation.
-- Add product/category profitability analysis using product cost.
-- Build Power BI dashboards on top of the reporting views.
-- Add automated SQL data-quality validation.
-- Add query performance analysis and optimization.
-- Containerize the SQL environment for reproducible setup.
+- Parameterize customer and product segmentation thresholds.
 
 ---
 
-## 📚 Skills Demonstrated
+## 🛠️ Skills Demonstrated
 
 **SQL / T-SQL:**  
-`SELECT` · `JOIN` · `GROUP BY` · `CASE` · `CTE` · Window Functions · `LAG()` · Aggregations · Date Functions · Views
+SQL Server · CTEs · Joins · Aggregations · Window Functions · `LAG()` · `CASE` · Date Functions · Views · Type Casting
 
-**Analytics:**  
-EDA · KPI Analysis · Trend Analysis · Ranking · Cumulative Analysis · Performance Analysis · Segmentation · Part-to-Whole Analysis
+**Data Analytics:**  
+EDA · KPI Analysis · Trend Analysis · Ranking · Performance Analysis · Segmentation · Part-to-Whole Analysis
 
 **Data Modeling:**  
-Fact and Dimension Tables · Star Schema · Analytical Views
+Fact Tables · Dimension Tables · Star Schema · Analytical Views
 
-**Business Analysis:**  
-Customer Analytics · Product Analytics · Revenue Analysis · Sales Performance · Behavioral Segmentation
+**Business Analytics:**  
+Customer Analytics · Product Analytics · Revenue Analysis · Sales Performance
 
 ---
 
 ## 📄 License
 
-This project is distributed under the license included in the repository.
+This project is available under the license included in the repository.
