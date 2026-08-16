@@ -586,32 +586,6 @@ gold.report_products
 
 ---
 
-## ⚠️ Implementation Notes
-
-The repository demonstrates the intended analytical workflow, but a few SQL expressions should be corrected before presenting the project as a fully executable production-quality repository:
-
-1. **Product cost column:**  
-   The table defines the column as `cost`, while `05_magnitude_analysis.sql` references `product_cost`.
-
-2. **Quantity ranking alias:**  
-   The country-level quantity query orders by `total_quantity`, while its selected alias is `total_sold_items`.
-
-3. **Product cost segmentation:**  
-   `11_data_segmentation.sql` contains `BETWEEN 500 AND 100`, which is an invalid range for the intended `500–1000` bucket.
-
-4. **Customer report view drop:**  
-   The existence check should consistently reference `gold.report_customers` rather than the unqualified object name.
-
-5. **Average calculations:**  
-   Because sales and order-related columns are integer types, explicit decimal/float casting should be used when fractional results are required, e.g. for AOV or average monthly spend.
-
-6. **Moving-average terminology:**  
-   The calculation in `08_cumulative_analysis.sql` is a cumulative average of monthly average prices, not a fixed-window moving average.
-
-These are implementation-level issues rather than limitations of the analytical approach.
-
----
-
 ## 💡 Business Value
 
 The project demonstrates how SQL can be used as an **analytical language**, not just a data-retrieval tool.
