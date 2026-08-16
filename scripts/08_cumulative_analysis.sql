@@ -5,7 +5,7 @@ SELECT
 	total_sales,
 	SUM(total_sales) OVER (ORDER BY order_month) AS running_total_sales,
 	average_price,
-	AVG(average_price) OVER (ORDER BY order_month) AS moving_average_price
+	AVG(average_price) OVER (ORDER BY order_month) AS cumulative_average_price
 FROM (
 	SELECT 
 		DATETRUNC(MONTH, order_date) AS order_month,
