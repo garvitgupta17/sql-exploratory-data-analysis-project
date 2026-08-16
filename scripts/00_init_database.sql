@@ -58,7 +58,7 @@ CREATE TABLE gold.dim_products(
 	category nvarchar(50) ,
 	subcategory nvarchar(50) ,
 	maintenance nvarchar(50) ,
-	cost int,
+	product_cost int,
 	product_line nvarchar(50),
 	start_date date 
 );
