@@ -24,8 +24,8 @@ Highlights:
 -- ===========================================================================
 -- Create Report: gold.report_customers
 -- ===========================================================================
-IF OBJECT_ID('report_customers', 'v') IS NOT NULL
-	DROP VIEW report_customers;
+IF OBJECT_ID('gold.report_customers', 'v') IS NOT NULL
+	DROP VIEW gold.report_customers;
 
 CREATE VIEW gold.report_customers AS
 
