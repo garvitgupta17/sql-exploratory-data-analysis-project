@@ -97,11 +97,11 @@ SELECT
 	average_selling_price,
 	CASE 
 		WHEN total_orders = 0 THEN total_sales
-		ELSE total_sales / total_orders
+		ELSE CAST(total_sales AS FLOAT) / total_orders
 	END AS average_order_revenue, -- Average order revenue (AOR)
 	CASE 
 		WHEN lifespan = 0 THEN total_sales
-		ELSE total_sales / lifespan
+		ELSE CAST(total_sales AS FLOAT) / lifespan
 	END average_monthly_revenue -- Average monthly revenue
 	FROM product_aggregations;
 	
