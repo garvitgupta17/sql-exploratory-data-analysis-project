@@ -58,10 +58,10 @@ The project follows a simple dimensional model:
                     │ first_name          │
                     │ last_name           │
                     │ country             │
-                    │ marital_status       │
+                    │ marital_status      │
                     │ gender              │
-                    │ birthdate            │
-                    │ create_date          │
+                    │ birthdate           │
+                    │ create_date         │
                     └──────────┬──────────┘
                                │
                                │ customer_key
@@ -95,7 +95,7 @@ The project follows a simple dimensional model:
                     │ maintenance         │
                     │ cost                │
                     │ product_line        │
-                    │ start_date           │
+                    │ start_date          │
                     └─────────────────────┘
 ```
 
