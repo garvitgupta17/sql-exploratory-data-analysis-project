@@ -97,14 +97,14 @@ SELECT
 	last_order_date,
 	DATEDIFF(MONTH, last_order_date, GETDATE()) AS recency,
 	lifespan,
-	CASE
-		 WHEN total_orders = 0 THEN total_sales
-		 ELSE total_sales / total_orders
-	END AS average_order_value, -- Average order value (AOV)
 	CASE 
-		WHEN lifespan = 0 THEN total_sales
-		ELSE total_sales / lifespan
-	END average_monthly_spend -- Average monthly spend
+	    WHEN total_orders = 0 THEN 0
+	    ELSE CAST(total_sales AS FLOAT) / total_orders
+	END AS average_order_value,  -- Average order value (AOV)
+	CASE 
+	    WHEN lifespan = 0 THEN 0
+	    ELSE CAST(total_sales AS FLOAT) / lifespan
+	END AS average_monthly_spend -- Average monthly spend
 FROM customer_aggregation;
 
 
